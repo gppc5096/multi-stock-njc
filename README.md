@@ -1,69 +1,76 @@
-# Welcome to your Lovable project
+# Multi Stock Management
 
-## Project info
+## 프로젝트 소개
 
-**URL**: https://lovable.dev/projects/b42ea64d-5231-4d44-824e-93e489f19c4d
+여러 증권사의 주식 투자 내역을 통합 관리할 수 있는 웹 애플리케이션입니다.
 
-## How can I edit this code?
+### 주요 기능
 
-There are several ways of editing your application.
+- **주식 거래 등록**: 국내/해외 주식 거래 내역을 등록하고 관리
+- **통계 분석**: 
+  - 국가별/증권사별/종목별 투자 현황 분석
+  - 차트와 리스트를 통한 직관적인 자산 분포 확인
+- **데이터 관리**: 
+  - Excel/JSON 형식의 데이터 가져오기/내보내기 지원
+  - 국가/증권사/종목 마스터 데이터 관리
 
-**Use Lovable**
+## 기술 스택
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/b42ea64d-5231-4d44-824e-93e489f19c4d) and start prompting.
+- **Frontend Framework**: React + TypeScript
+- **Build Tool**: Vite
+- **UI Framework**: shadcn/ui
+- **Styling**: Tailwind CSS
+- **Charts**: Recharts
+- **Data Processing**: xlsx
 
-Changes made via Lovable will be committed automatically to this repo.
+## 로컬 개발 환경 설정
 
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+Node.js & npm이 설치되어 있어야 합니다. ([nvm을 통한 설치 가이드](https://github.com/nvm-sh/nvm#installing-and-updating))
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
+# 1. 저장소 복제
 git clone <YOUR_GIT_URL>
 
-# Step 2: Navigate to the project directory.
+# 2. 프로젝트 디렉토리로 이동
 cd <YOUR_PROJECT_NAME>
 
-# Step 3: Install the necessary dependencies.
-npm i
+# 3. 의존성 패키지 설치
+npm install
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# 4. 개발 서버 실행
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## 데이터 저장 방식
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- 모든 데이터는 브라우저의 LocalStorage에 저장됩니다
+- Excel/JSON 형식으로 데이터를 내보내고 가져올 수 있습니다
 
-**Use GitHub Codespaces**
+## 프로젝트 구조
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```
+src/
+├── components/         # UI 컴포넌트
+│   ├── stock/         # 주식 관련 컴포넌트
+│   ├── statistics/    # 통계 관련 컴포넌트
+│   ├── settings/      # 설정 관련 컴포넌트
+│   └── ui/            # 공통 UI 컴포넌트
+├── lib/               # 유틸리티 함수
+├── types/             # TypeScript 타입 정의
+└── pages/             # 페이지 컴포넌트
+```
 
-## What technologies are used for this project?
+## 배포
 
-This project is built with .
+[Lovable](https://lovable.dev/projects/b42ea64d-5231-4d44-824e-93e489f19c4d)을 통해 간단하게 배포할 수 있습니다.
+Share -> Publish 버튼을 클릭하세요.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 커스텀 도메인
 
-## How can I deploy this project?
+현재는 커스텀 도메인을 직접 지원하지 않습니다. 
+필요한 경우 Netlify를 통한 배포를 권장합니다. 
+자세한 내용은 [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/) 문서를 참조하세요.
 
-Simply open [Lovable](https://lovable.dev/projects/b42ea64d-5231-4d44-824e-93e489f19c4d) and click on Share -> Publish.
+## 라이선스
 
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+이 프로젝트는 MIT 라이선스 하에 배포됩니다.
