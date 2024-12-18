@@ -29,6 +29,7 @@ export const Navbar = () => {
 
   const handleLogout = () => {
     logout();
+    window.dispatchEvent(new Event('logout'));
     navigate('/landing');
   };
 
