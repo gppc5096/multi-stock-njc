@@ -12,6 +12,11 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
+import { motion, HTMLMotionProps } from "framer-motion";
+import { Shield, Lock, ArrowRight } from "lucide-react";
+
+// motion 컴포넌트를 위한 타입 정의
+type MotionDivProps = HTMLMotionProps<"div">;
 
 const LandingPage = () => {
   const [password, setPasswordInput] = useState("");
@@ -61,36 +66,98 @@ const LandingPage = () => {
     }
   };
 
+  const welcomeMessage = hasPassword() 
+    ? "비밀번호를 입력하여 주세요."
+    : "프로그램을 안전하게 사용하기 위해 비밀번호를 설정해 주세요.";
+
   return (
-    <div className="container flex items-center justify-center min-h-screen">
-      <Card className="w-[400px]">
-        <CardHeader>
-          <CardTitle>Sign In</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Input
-                type="password"
-                placeholder="비밀번호"
-                value={password}
-                onChange={(e) => setPasswordInput(e.target.value)}
-              />
-              {!hasPassword() && (
+    <div className="container flex flex-col items-center justify-center min-h-screen">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="mb-8 text-center"
+      >
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 mb-4">
+          <Shield className="w-8 h-8 text-blue-600" />
+        </div>
+        <h2 className="text-2xl font-bold mb-3 text-gray-800">
+          Multi Stock Management에 오신 것을 환영합니다
+        </h2>
+        <div className="max-w-2xl mx-auto space-y-4 text-gray-600">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+            className="flex items-center justify-center gap-2"
+          >
+            <Lock className="w-5 h-5 text-blue-500" />
+            <p className="text-center">{welcomeMessage}</p>
+          </motion.div>
+          {!hasPassword() && (
+            <>
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.6 }}
+                className="flex items-center justify-center gap-2"
+              >
+                <ArrowRight className="w-5 h-5 text-blue-500" />
+                <p className="text-center">최초 비밀번호는 임의로 입력하시고 로그인 하세요.</p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.9 }}
+                className="flex items-center justify-center gap-2"
+              >
+                <ArrowRight className="w-5 h-5 text-blue-500" />
+                <p className="text-center">설정된 비밀번호는 나중에 '설정' 메뉴에서 변경할 수 있습니다.</p>
+              </motion.div>
+            </>
+          )}
+        </div>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ 
+          delay: hasPassword() ? 0.5 : 0.9,
+          duration: 0.6,
+          ease: "easeOut"
+        }}
+        className="w-[400px]"
+      >
+        <Card className="w-[400px]">
+          <CardHeader>
+            <CardTitle>Sign In</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-2">
                 <Input
                   type="password"
-                  placeholder="비밀번호 확인"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  placeholder="비밀번호"
+                  value={password}
+                  onChange={(e) => setPasswordInput(e.target.value)}
                 />
-              )}
-            </div>
-            <Button type="submit" className="w-full">
-              {hasPassword() ? "로그인" : "시작하기"}
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
+                {!hasPassword() && (
+                  <Input
+                    type="password"
+                    placeholder="비밀번호 확인"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
+                )}
+              </div>
+              <Button type="submit" className="w-full">
+                {hasPassword() ? "로그인" : "시작하기"}
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      </motion.div>
 
       <Dialog open={showModal} onOpenChange={setShowModal}>
         <DialogContent>
