@@ -17,6 +17,10 @@ export const router = createBrowserRouter([
         element: <LandingPage />,
       },
       {
+        path: 'auth',
+        element: <LandingPage />,
+      },
+      {
         element: <Layout />,
         children: [
           {
