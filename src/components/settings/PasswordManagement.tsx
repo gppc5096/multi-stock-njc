@@ -84,7 +84,7 @@ const PasswordManagement = () => {
       <CardContent>
         <form onSubmit={handlePasswordChange} className="space-y-4">
           <div className="space-y-2">
-            <Label>현재 비밀번호</Label>
+            <Label>현재비밀번호를 입력 후 새 비밀번호를 설정하세요.</Label>
             <Input
               type="password"
               value={currentPassword}
