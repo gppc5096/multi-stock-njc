@@ -1,9 +1,8 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Settings2, ListPlus, Database, Lock } from "lucide-react";
 import SettingsForm from "@/components/settings/SettingsForm";
 import SettingsTable from "@/components/settings/SettingsTable";
 import DataManagement from "@/components/settings/DataManagement";
-import { Separator } from "@/components/ui/separator";
-import { Settings2, ListPlus, Database } from "lucide-react";
+import PasswordManagement from "@/components/settings/PasswordManagement";
 
 const Settings = () => {
   return (
@@ -25,6 +24,14 @@ const Settings = () => {
           데이터 관리
         </h2>
         <DataManagement />
+      </div>
+
+      <div>
+        <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+          <Lock className="h-6 w-6 text-primary" />
+          보안 설정
+        </h2>
+        <PasswordManagement />
       </div>
     </div>
   );

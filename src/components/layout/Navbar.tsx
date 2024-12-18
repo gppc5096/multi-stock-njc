@@ -1,51 +1,70 @@
-import { Link, useLocation } from "react-router-dom";
-import { ChartBarIcon, ListTodo, Settings } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { cn } from "@/lib/utils";
+import { LayoutDashboard, BarChart2, Settings as SettingsIcon, LogOut } from "lucide-react";
+import { logout, isAuthenticated } from "@/lib/security/passwordManager";
+import { Button } from "@/components/ui/button";
 
-const Navbar = () => {
+const navItems = [
+  {
+    title: "등록 현황",
+    href: "/",
+    icon: LayoutDashboard,
+  },
+  {
+    title: "통계",
+    href: "/statistics",
+    icon: BarChart2,
+  },
+  {
+    title: "설정",
+    href: "/settings",
+    icon: SettingsIcon,
+  },
+];
+
+export const Navbar = () => {
   const location = useLocation();
-  
-  const isActive = (path: string) => location.pathname === path;
-  
+  const navigate = useNavigate();
+  const authenticated = isAuthenticated();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/landing');
+  };
+
   return (
-    <nav className="border-b sticky top-0 bg-background z-50">
-      <div className="max-w-[1400px] mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
-          <div className="flex-shrink-0">
-            <h1 className="text-xl font-bold">Multi Stock Management</h1>
-          </div>
-          <div className="flex space-x-8">
-            <Link
-              to="/"
-              className={`flex items-center space-x-2 ${
-                isActive('/') ? 'text-primary' : 'text-muted-foreground'
-              }`}
+    <nav className="bg-[#2c46f2] border-b">
+      <div className="container flex h-14 items-center justify-between">
+        <h1 className="text-2xl font-bold text-white">Multi Stock Management</h1>
+        <div className="flex items-center gap-6">
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.href}
+                to={item.href}
+                className={cn(
+                  "flex items-center gap-2 text-xl transition-colors text-white/80 hover:text-white",
+                  location.pathname === item.href && "text-white"
+                )}
+              >
+                <Icon className="h-5 w-5" />
+                {item.title}
+              </Link>
+            );
+          })}
+          {authenticated && (
+            <Button
+              variant="ghost"
+              className="flex items-center gap-2 text-xl text-white/80 hover:text-white hover:bg-transparent"
+              onClick={handleLogout}
             >
-              <ListTodo className="h-5 w-5" />
-              <span>등록현황</span>
-            </Link>
-            <Link
-              to="/statistics"
-              className={`flex items-center space-x-2 ${
-                isActive('/statistics') ? 'text-primary' : 'text-muted-foreground'
-              }`}
-            >
-              <ChartBarIcon className="h-5 w-5" />
-              <span>통계</span>
-            </Link>
-            <Link
-              to="/settings"
-              className={`flex items-center space-x-2 ${
-                isActive('/settings') ? 'text-primary' : 'text-muted-foreground'
-              }`}
-            >
-              <Settings className="h-5 w-5" />
-              <span>설정</span>
-            </Link>
-          </div>
+              <LogOut className="h-5 w-5" />
+              종료
+            </Button>
+          )}
         </div>
       </div>
     </nav>
   );
 };
-
-export default Navbar;
