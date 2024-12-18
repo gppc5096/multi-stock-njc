@@ -27,7 +27,15 @@ const PasswordManagement = () => {
   const handlePasswordChange = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!verifyPassword(currentPassword)) {
+    if (!currentPassword) {
+      setModalMessage("현재 비밀번호를 입력해주세요.");
+      setIsSuccessModal(false);
+      setShowModal(true);
+      return;
+    }
+
+    const storedPassword = getPassword();
+    if (currentPassword !== storedPassword) {
       setModalMessage("현재 비밀번호가 일치하지 않습니다.");
       setIsSuccessModal(false);
       setShowModal(true);
