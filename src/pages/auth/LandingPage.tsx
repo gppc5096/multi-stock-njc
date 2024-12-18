@@ -26,13 +26,22 @@ const LandingPage = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  // 컴포넌트 마운트 시 입력 필드 초기화
+  // 컴포��트 마운트와 언마운트 시 입력 필드 초기화
   useEffect(() => {
-    setPasswordInput("");
-    setConfirmPassword("");
+    const clearInputs = () => {
+      setPasswordInput("");
+      setConfirmPassword("");
+    };
+
+    clearInputs(); // 마운트 시 초기화
+
+    // 페이지 벗어날 때 초기화
+    return () => {
+      clearInputs();
+    };
   }, []);
 
-  // 로그아웃 이벤트 리스너 추가
+  // 로그아웃 이벤트 리스너
   useEffect(() => {
     const handleLogout = () => {
       setPasswordInput("");
@@ -40,7 +49,11 @@ const LandingPage = () => {
     };
 
     window.addEventListener('logout', handleLogout);
-    return () => window.removeEventListener('logout', handleLogout);
+    return () => {
+      window.removeEventListener('logout', handleLogout);
+      setPasswordInput("");
+      setConfirmPassword("");
+    };
   }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -85,7 +98,7 @@ const LandingPage = () => {
 
   const welcomeMessage = hasPassword() 
     ? "비밀번호를 입력하여 주세요."
-    : "프로그램을 안전하게 사용하기 ��해 비밀번호를 설정해 주세요.";
+    : "프로그램을 안전하게 사용하기 해 비밀번호를 설정해 주세요.";
 
   return (
     <div className="container flex flex-col items-center justify-center min-h-screen">

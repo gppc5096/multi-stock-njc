@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
 import Index from '../pages/Index';
 import Statistics from '../pages/Statistics';
@@ -13,18 +13,22 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
+        path: '',
+        element: <Navigate to="/landing" replace />,
+      },
+      {
         path: 'landing',
         element: <LandingPage />,
       },
       {
         path: 'auth',
-        element: <LandingPage />,
+        element: <Navigate to="/landing" replace />,
       },
       {
         element: <Layout />,
         children: [
           {
-            path: '',
+            path: 'home',
             element: (
               <SecureRoute>
                 <Index />
@@ -48,6 +52,10 @@ export const router = createBrowserRouter([
             ),
           },
         ],
+      },
+      {
+        path: '*',
+        element: <Navigate to="/landing" replace />,
       },
     ],
   },
