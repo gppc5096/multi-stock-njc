@@ -14,7 +14,11 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '',
-        element: <Navigate to="/landing" replace />,
+        element: (
+          <SecureRoute>
+            <Index />
+          </SecureRoute>
+        ),
       },
       {
         path: 'landing',

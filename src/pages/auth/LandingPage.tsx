@@ -26,7 +26,7 @@ const LandingPage = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  // 컴포��트 마운트와 언마운트 시 입력 필드 초기화
+  // 컴포트 마운트와 언마운트 시 입력 필드 초기화
   useEffect(() => {
     const clearInputs = () => {
       setPasswordInput("");
@@ -68,7 +68,7 @@ const LandingPage = () => {
         return;
       }
       setAuthenticated();
-      navigate('/');
+      navigate('/home');
     } else {
       // 최초 비밀번호 설정 모드
       if (password.length < 4) {
@@ -91,7 +91,7 @@ const LandingPage = () => {
       setShowModal(true);
       
       setTimeout(() => {
-        navigate('/');
+        navigate('/home');
       }, 2000);
     }
   };
