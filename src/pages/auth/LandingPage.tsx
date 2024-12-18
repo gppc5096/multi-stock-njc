@@ -13,7 +13,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { motion, HTMLMotionProps } from "framer-motion";
-import { Shield, Lock, ArrowRight } from "lucide-react";
+import { Shield, Lock, ArrowRight, Eye, EyeOff } from "lucide-react";
 
 // motion 컴포넌트를 위한 타입 정의
 type MotionDivProps = HTMLMotionProps<"div">;
@@ -21,38 +21,36 @@ type MotionDivProps = HTMLMotionProps<"div">;
 const LandingPage = () => {
   const [password, setPasswordInput] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  // 컴포트 마운트와 언마운트 시 입력 필드 초기화
+  // 입력 필드 초기화 함수
+  const clearInputs = () => {
+    setPasswordInput("");
+    setConfirmPassword("");
+    setShowPassword(false);
+    setShowConfirmPassword(false);
+  };
+
+  // 컴포넌트 마운트 시 초기화
   useEffect(() => {
-    const clearInputs = () => {
-      setPasswordInput("");
-      setConfirmPassword("");
-    };
-
-    clearInputs(); // 마운트 시 초기화
-
-    // 페이지 벗어날 때 초기화
-    return () => {
-      clearInputs();
-    };
+    clearInputs();
   }, []);
 
   // 로그아웃 이벤트 리스너
   useEffect(() => {
     const handleLogout = () => {
-      setPasswordInput("");
-      setConfirmPassword("");
+      clearInputs();
     };
 
     window.addEventListener('logout', handleLogout);
     return () => {
       window.removeEventListener('logout', handleLogout);
-      setPasswordInput("");
-      setConfirmPassword("");
+      clearInputs();
     };
   }, []);
 
@@ -98,7 +96,7 @@ const LandingPage = () => {
 
   const welcomeMessage = hasPassword() 
     ? "비밀번호를 입력하여 주세요."
-    : "프로그램을 안전하게 사용하기 해 비밀번호를 설정해 주세요.";
+    : "프로그램을 안전하게 ���용하기 해 비밀번호를 설정해 주세요.";
 
   return (
     <div className="container flex flex-col items-center justify-center min-h-screen">
@@ -166,19 +164,45 @@ const LandingPage = () => {
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Input
-                  type="password"
-                  placeholder="비밀번호"
-                  value={password}
-                  onChange={(e) => setPasswordInput(e.target.value)}
-                />
-                {!hasPassword() && (
+                <div className="relative">
                   <Input
-                    type="password"
-                    placeholder="비밀번호 확인"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    type={showPassword ? "text" : "password"}
+                    placeholder="비밀번호"
+                    value={password}
+                    onChange={(e) => setPasswordInput(e.target.value)}
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4" />
+                    ) : (
+                      <Eye className="h-4 w-4" />
+                    )}
+                  </button>
+                </div>
+                {!hasPassword() && (
+                  <div className="relative">
+                    <Input
+                      type={showConfirmPassword ? "text" : "password"}
+                      placeholder="비밀번호 확인"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                    >
+                      {showConfirmPassword ? (
+                        <EyeOff className="h-4 w-4" />
+                      ) : (
+                        <Eye className="h-4 w-4" />
+                      )}
+                    </button>
+                  </div>
                 )}
               </div>
               <Button type="submit" className="w-full">
