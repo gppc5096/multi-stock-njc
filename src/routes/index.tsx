@@ -13,7 +13,7 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: '*',
+        path: '',
         element: <Navigate to="/landing" replace />,
       },
       {
@@ -52,6 +52,10 @@ export const router = createBrowserRouter([
             ),
           },
         ],
+      },
+      {
+        path: '*',
+        element: <Navigate to="/landing" replace />,
       },
     ],
   },
