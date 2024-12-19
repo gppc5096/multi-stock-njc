@@ -96,7 +96,7 @@ const LandingPage = () => {
 
   const welcomeMessage = hasPassword() 
     ? "비밀번호를 입력하여 주세요."
-    : "프로그램을 안전하게 ���용하기 해 비밀번호를 설정해 주세요.";
+    : "프로그램을 안전하게 사용하기 위해 비밀번호를 설정해 주세요.";
 
   return (
     <div className="container flex flex-col items-center justify-center min-h-screen">
