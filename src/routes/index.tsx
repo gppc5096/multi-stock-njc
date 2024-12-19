@@ -13,12 +13,8 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: '',
-        element: (
-          <SecureRoute>
-            <Index />
-          </SecureRoute>
-        ),
+        path: '*',
+        element: <Navigate to="/landing" replace />,
       },
       {
         path: 'landing',
@@ -56,10 +52,6 @@ export const router = createBrowserRouter([
             ),
           },
         ],
-      },
-      {
-        path: '*',
-        element: <Navigate to="/landing" replace />,
       },
     ],
   },
